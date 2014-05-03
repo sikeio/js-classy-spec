@@ -119,7 +119,7 @@ describe("Implement Methods Inheritance", function() {
   });
 });
 
-describe("Implement Super",function() {
+describe("Implement Super call",function() {
   var A = Class({
     foo: function(a,b) {
       return [this.n,a,b];
@@ -176,26 +176,28 @@ describe("Implement Super",function() {
 });
 
 describe("Implement Super's Super",function() {
-  var A = Class({
-    foo: function(a,b) {
-      return [a,b];
-    }
+  var A, B, C, c;
+  beforeEach(function() {
+    A = Class({
+      foo: function(a,b) {
+        return [a,b];
+      }
+    });
+
+    B = Class({
+      foo: function(a,b) {
+        return this.super("foo",a*10,b*100);
+      }
+    },A);
+
+    C = Class({
+      foo: function(a,b) {
+        return this.super("foo",a*10,b*100);
+      }
+    },B);
+
+    c = new C();
   });
-
-  var B = Class({
-    foo: function(a,b) {
-      return this.super("foo",a*10,b*100);
-    }
-  },A);
-
-  var C = Class({
-    foo: function(a,b) {
-      return this.super("foo",a*10,b*100);
-    }
-  },B);
-
-
-  var c = new C();
 
   it("should be able to call super's super",function() {
     expect(c.foo(1,2)).to.deep.equal([100,20000]);
