@@ -70,7 +70,7 @@ describe("Implement Class __super__", function() {
 });
 
 describe("Implement Super call", function() {
-  var A = Class({
+  const A = Class({
     foo: function(a, b) {
       return [this.n, a, b];
     },
@@ -84,7 +84,7 @@ describe("Implement Super call", function() {
     }
   });
 
-  var B = Class({
+  const B = Class({
     foo: function(a, b) {
       return this.super("foo", a * 10, b * 100);
     },
@@ -98,29 +98,29 @@ describe("Implement Super call", function() {
     }
   }, A);
 
-  var C = Class({
+  const C = Class({
     foo: function(a, b) {
       return this.super("foo", a * 10, b * 100);
     }
   }, B);
 
-  var b = new B();
+  const b = new B();
   b.n = 1;
 
   it("should define the `super` method", function() {
-    expect(b.super).to.be.a("function");
+    assert.isFunction(b.__proto__.super);
   });
 
   it("should be able to call super method without arguments", function() {
-    expect(b.bar()).to.equal(21);
+    assert.equal(b.bar(), 21);
   });
 
   it("should call super method with the correct `this` context", function() {
-    expect(b.self()).to.equal(b);
+    assert.equal(b.self(), b);
   });
 
   it("should be able to call super method with multiple arguments", function() {
-    expect(b.foo(2, 3)).to.deep.equal([1, 20, 300]);
+    assert.deepEqual(b.foo(2, 3), [1, 20, 300])
   });
 
 });
