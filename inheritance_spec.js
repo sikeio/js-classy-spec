@@ -1,59 +1,47 @@
-var expect = require("chai").expect;
-var Class = require("../");
-
-describe("Implement Class __super__",function() {
-  var A = Class({
-    a: function() {
-      return 1;
-    }
-  });
-
-  var B = Class({
-    b: function() {
-      return 2;
-    }
-  },A);
-
-  it("should set the __super__ class property to the parent class",function() {
-    expect(B.__super__).to.eq(A);
-  });
-
-  it("should set Object as the default __super__ class",function() {
-    expect(A.__super__).to.eq(Object);
-  });
-});
+"use strict";
+const expect = require("chai").expect;
+const assert = require("chai").assert;
+const Class = require("../");
 
 describe("Implement Methods Inheritance", function() {
-  var A = Class({
+  const A = Class({
     a: function() {
       return 1;
     }
   });
 
-  var B = Class({
+  const B = Class({
     b: function() {
       return 2;
     }
-  },A);
+  }, A);
 
-  var b = new B();
+  const b = new B();
+  const a = new A();
 
   describe("b",function() {
+    it("constructor should be B",function() {
+      assert(b.constructor === B);
+    });
+
+    it("should be an instance of A",function() {
+      assert(b instanceof A);
+    });
+
     it("should be an instance of B",function() {
-      expect(b.constructor).to.eq(B);
+      assert(b instanceof B);
     });
 
     it("should be able to call method `a` through inheritance",function() {
-      expect(b.a).to.be.a("function");
-      expect(b.a()).to.be.eq(1);
+      assert.equal(b.a(), 1);
     });
 
     it("should not have method `a` defined directly on the object",function() {
-      expect(b.hasOwnProperty("a")).to.be.false;
+      assert(b.hasOwnProperty("a") === false);
     });
 
     it("should not have method `a` defined directly on the prototype of B",function() {
-      expect(B.constructor.hasOwnProperty("a")).to.be.false;
+      assert(b.__proto__.hasOwnProperty("a") === false);
     });
   });
 });
@@ -113,6 +101,29 @@ describe("Implement Super call",function() {
   });
 
 });
+
+describe("Implement Class __super__",function() {
+  var A = Class({
+    a: function() {
+      return 1;
+    }
+  });
+
+  var B = Class({
+    b: function() {
+      return 2;
+    }
+  },A);
+
+  it("should set the __super__ class property to the parent class",function() {
+    expect(B.__super__).to.eq(A);
+  });
+
+  it("should set Object as the default __super__ class",function() {
+    expect(A.__super__).to.eq(Object);
+  });
+});
+
 
 describe("Implement Super's Super",function() {
   var A, B, C, c;
