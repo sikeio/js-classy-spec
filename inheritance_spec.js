@@ -127,20 +127,20 @@ describe("Implement Super call", function() {
 describe("Implement Super's Super", function() {
   it("should be able to call super's super", function() {
     const A = Class({
-      foo: function(a) {
-        return a + a;
+      foo: function(n) {
+        return n + n;
       }
     });
 
     const B = Class({
-      foo: function(a, b) {
-        return this.super("foo", a * a);
+      foo: function(n) {
+        return this.super("foo", n * n);
       }
     }, A);
 
     const C = Class({
-      foo: function(a, b) {
-        return this.super("foo", a * 10);
+      foo: function(n) {
+        return this.super("foo", n * 10);
       }
     }, B);
 
