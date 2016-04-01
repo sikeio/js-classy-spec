@@ -125,9 +125,7 @@ describe("Implement Super call", function() {
 });
 
 describe("Implement Super's Super", function() {
-  let A, B, C, c;
-
-  beforeEach(function() {
+  it("should be able to call super's super", function() {
     const A = Class({
       foo: function(a) {
         return a + a;
@@ -146,10 +144,8 @@ describe("Implement Super's Super", function() {
       }
     }, B);
 
-    c = new C();
-  });
+    const c = new C();
 
-  it("should be able to call super's super", function() {
     assert.equal(c.foo(1), 200);
   });
 });
