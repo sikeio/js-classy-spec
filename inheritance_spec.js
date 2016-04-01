@@ -1,5 +1,4 @@
 "use strict";
-const expect = require("chai").expect;
 const assert = require("chai").assert;
 const Class = require("../");
 
@@ -126,23 +125,24 @@ describe("Implement Super call", function() {
 });
 
 describe("Implement Super's Super", function() {
-  var A, B, C, c;
+  let A, B, C, c;
+
   beforeEach(function() {
-    A = Class({
-      foo: function(a, b) {
-        return [a, b];
+    const A = Class({
+      foo: function(a) {
+        return a + a;
       }
     });
 
-    B = Class({
+    const B = Class({
       foo: function(a, b) {
-        return this.super("foo", a * 10, b * 100);
+        return this.super("foo", a * a);
       }
     }, A);
 
-    C = Class({
+    const C = Class({
       foo: function(a, b) {
-        return this.super("foo", a * 10, b * 100);
+        return this.super("foo", a * 10);
       }
     }, B);
 
@@ -150,6 +150,6 @@ describe("Implement Super's Super", function() {
   });
 
   it("should be able to call super's super", function() {
-    expect(c.foo(1, 2)).to.deep.equal([100, 20000]);
+    assert.equal(c.foo(1), 200);
   });
 });
