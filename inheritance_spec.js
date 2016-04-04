@@ -60,11 +60,11 @@ describe("Implement Class __super__", function() {
   }, A);
 
   it("should set the __super__ class property to the parent class", function() {
-    expect(B.__super__).to.eq(A);
+    assert(B.__super__ === A);
   });
 
   it("should set Object as the default __super__ class", function() {
-    expect(A.__super__).to.eq(Object);
+    assert(A.__super__===Object);
   });
 });
 
