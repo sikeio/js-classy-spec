@@ -60,12 +60,10 @@ describe("Implement Class __super__", function() {
   }, A);
 
   it("should set the __super__ class property to the parent class", function() {
-    // expect(B.__super__).to.eq(A);
     assert(B.__super__ === A)
   });
 
   it("should set Object as the default __super__ class", function() {
-    // expect(A.__super__).to.eq(Object);
     assert(A.__super__ === Object)
   });
 });
@@ -129,25 +127,19 @@ describe("Implement Super call", function() {
 describe("Implement Super's Super", function() {
   it("should be able to call super's super", function() {
     const A = Class({
-      name: 'a',
       foo: function(n) {
-        // console.log(this.constructor.__super__.prototype.name);
         return n + n;
       }
     });
 
     const B = Class({
-      name: 'b',
       foo: function(n) {
-        // console.log(this.constructor.__super__.prototype.name);
         return this.super("foo", n * n);
       }
     }, A);
 
     const C = Class({
-      name: 'c',
       foo: function(n) {
-        // console.log(this.constructor.__super__.prototype.name);
         return this.super("foo", n * 10);
       }
     }, B);
