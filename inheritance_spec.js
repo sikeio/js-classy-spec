@@ -1,4 +1,9 @@
 "use strict";
+const mocha = require("mocha");
+const it = mocha.it;
+const describe = mocha.describe;
+console.log("describe", describe);
+
 const assert = require("chai").assert;
 const Class = require("../");
 
@@ -45,7 +50,6 @@ describe("Implement Methods Inheritance", function() {
   });
 });
 
-
 describe("Implement Class __super__", function() {
   var A = Class({
     a: function() {
@@ -60,11 +64,11 @@ describe("Implement Class __super__", function() {
   }, A);
 
   it("should set the __super__ class property to the parent class", function() {
-    assert(B.__super__ === A);
+    assert.equal(B.__super__, A);
   });
 
   it("should set Object as the default __super__ class", function() {
-    assert(A.__super__===Object);
+    assert.equal(A.__super__, Object);
   });
 });
 
