@@ -129,25 +129,31 @@ describe("Implement Super call", function() {
 });
 
 describe("Implement Super's Super", function() {
+  const A = Class({
+    foo: function(n) {
+      return n + n;
+    }
+  });
+
+  const B = Class({
+    foo: function(n) {
+      return this.super("foo", n * n);
+    }
+  }, A);
+
+  const C = Class({
+    foo: function(n) {
+      return this.super("foo", n * 10);
+    }
+  }, B);
+
   it("should be able to call super's super", function() {
-    const A = Class({
-      foo: function(n) {
-        return n + n;
-      }
-    });
+    const c = new C();
 
-    const B = Class({
-      foo: function(n) {
-        return this.super("foo", n * n);
-      }
-    }, A);
+    assert.equal(c.foo(1), 200);
+  });
 
-    const C = Class({
-      foo: function(n) {
-        return this.super("foo", n * 10);
-      }
-    }, B);
-
+  it("should be able to call the super method multiple times", function() {
     const c = new C();
 
     assert.equal(c.foo(1), 200);
