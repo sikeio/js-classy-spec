@@ -151,5 +151,6 @@ describe("Implement Super's Super", function() {
     const c = new C();
 
     assert.equal(c.foo(1), 200);
+    assert.equal(c.foo(1), 200);
   });
 });

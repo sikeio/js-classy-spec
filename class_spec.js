@@ -1,5 +1,5 @@
 "use strict";
-const expect = require("chai").expect;
+const assert = require("chai").assert;
 const Class = require("../");
 
 describe("Implement Class Constructor", function() {
@@ -11,24 +11,24 @@ describe("Implement Class Constructor", function() {
   const Foo = Class({ initialize: constructor });
 
   it("should return a class constructor function", function() {
-    expect(Foo).to.be.a("function");
+    assert.isFunction(Foo);
   });
 
   it("should be able define a class", function() {
     const obj = new Foo(1, 2);
-    expect(obj.constructor).to.eq(Foo);
-    expect(obj.a).to.eql(1);
-    expect(obj.b).to.eql(2);
+    assert.equal(obj.constructor, Foo);
+    assert.equal(obj.a, 1);
+    assert.equal(obj.b, 2);
 
     const obj2 = new Foo(3, 4);
-    expect(obj2.a).to.eql(3);
-    expect(obj2.b).to.eql(4);
+    assert.equal(obj2.a, 3);
+    assert.equal(obj2.b, 4);
   });
 
   it("should be able define a class without constructor", function() {
     const klass = Class({});
     const obj = new klass()
-    expect(obj.constructor).to.eq(klass);
+    assert.equal(obj.constructor, klass);
   });
 });
 
@@ -51,15 +51,21 @@ describe("Implement Instance Methods", function() {
   const foo = new Foo(1, 2);
 
   it("should be able to define methods", function() {
-    expect(foo.getA).to.be.a("function");
-    expect(foo.getB).to.be.a("function");
+    assert.isFunction(foo.getA);
+    assert.isFunction(foo.getB);
 
-    expect(foo.getA()).to.eq(1);
-    expect(foo.getB()).to.eq(2);
+    assert.equal(foo.getA(), 1);
+    assert.equal(foo.getB(), 2);
   });
 
   it("should not define `initialize` as a method", function() {
-    expect(foo.initialize).to.be.undefined;
+    assert.isUndefined(foo.initialize);
   });
-});
 
+  it("should found methods in prototype", function() {
+    assert.isFunction(Foo.prototype.getA);
+    assert.isFunction(Foo.prototype.getB);
+    assert.equal(Foo.prototype.getA.call(foo), 1);
+    assert.equal(Foo.prototype.getB.call(foo), 2);
+  })
+});
