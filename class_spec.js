@@ -62,10 +62,8 @@ describe("Implement Instance Methods", function() {
     assert.isUndefined(foo.initialize);
   });
 
-  it("should found methods in prototype", function() {
-    assert.isFunction(Foo.prototype.getA);
-    assert.isFunction(Foo.prototype.getB);
-    assert.equal(Foo.prototype.getA.call(foo), 1);
-    assert.equal(Foo.prototype.getB.call(foo), 2);
-  })
+  it("should not define methods directly on the object", function() {
+    assert(foo.hasOwnProperty("getA") === false);
+    assert(foo.hasOwnProperty("getB") === false);
+  });
 });
