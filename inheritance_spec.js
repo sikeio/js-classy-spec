@@ -1,9 +1,4 @@
 "use strict";
-const mocha = require("mocha");
-const it = mocha.it;
-const describe = mocha.describe;
-console.log("describe", describe);
-
 const assert = require("chai").assert;
 const Class = require("../");
 
