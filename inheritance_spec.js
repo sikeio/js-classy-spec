@@ -133,12 +133,18 @@ describe("Implement Super's Super", function() {
   const B = Class({
     foo: function(n) {
       return this.super("foo", n * n);
+    }, 
+    bar: function(n) {
+      return n + 3;     
     }
   }, A);
 
   const C = Class({
     foo: function(n) {
       return this.super("foo", n * 10);
+    },
+    bar: function(n) {
+      return this.super("bar", n * 3);
     }
   }, B);
 
@@ -151,6 +157,7 @@ describe("Implement Super's Super", function() {
   it("should be able to call the super method multiple times", function() {
     const c = new C();
 
+    assert.equal(c.bar(1), 6);
     assert.equal(c.foo(1), 200);
     assert.equal(c.foo(1), 200);
   });
